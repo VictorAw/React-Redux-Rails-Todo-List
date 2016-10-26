@@ -32,6 +32,15 @@ class TodoForm extends React.Component {
 
     const todo = Object.assign({}, this.state);
 
+    // We must wrap todo in an object so that it matches the
+    // rails expected params form.
+    // Rails expects:
+    //    params = {<...>, todo: {title: <>, body: <>, done: <>}}
+    // By passing in {todo}, we pass in a Javascript object:
+    //    {todo: {title: <>, body: <>, done: <>}}
+    //    which matches the expected rails params format
+    // Ruby looks like params[todo], which is provided by the
+    //    javascript object created by {todo}
     this.props.createTodo({todo});
     this.setState({
       title: "",
